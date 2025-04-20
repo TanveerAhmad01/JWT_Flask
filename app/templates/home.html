@@ -1,0 +1,47 @@
+<!-- templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='homeStyle.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome to Your Dashboard</h1>
+        <p>You are now logged in, {{ username }}!</p>
+
+        <div class="nav">
+            <a href="/logout">Logout</a>
+        </div>
+
+        <div class="card-container">
+            {% for user in users %}
+            <div class="card">
+                <h3>{{ user.Name }}</h3>
+                <p><strong>Title:</strong> {{ user.Title }}</p>
+                <p><strong>Phone:</strong> {{ user.Phone }}</p>
+                <p><strong>Location:</strong> {{ user.Location }}</p>
+                <p><strong>Specialties:</strong> {{ user.Specialties }}</p>
+                <div class="about">
+                    <p><strong>About:</strong> {{ user.About }}</p>
+                </div>
+                <p><strong>Fees:</strong> {{ user.Fees }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            {% if page > 1 %}
+            <a href="/?page={{ page - 1 }}">Previous</a> {% endif %}
+            <span>Page {{ page }} of {{ total_pages }}</span> {% if page
+            < total_pages %} <a href="/?page={{ page + 1 }}">Next</a>
+                {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>
